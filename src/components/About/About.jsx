@@ -59,7 +59,7 @@ const About = () => {
 
   const stats = [
     { id: 1, label: 'Years of Learning', value: '4', suffix: '', icon: <FaGraduationCap /> },
-    { id: 2, label: 'Projects Completed', value: '10', suffix: '+', icon: <FaCode /> },
+    { id: 2, label: 'Projects Completed', value: '15', suffix: '+', icon: <FaCode /> },
     { id: 3, label: 'Hackathons Participated', value: '3', suffix: '', icon: <FaTrophy /> },
   ];
 
