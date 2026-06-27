@@ -36,22 +36,54 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    setIsSubmitting(true);
+  // Validate the form
+  if (!validateForm()) return;
 
+  // Show loading spinner
+  setIsSubmitting(true);
+
+  // Create WhatsApp message
+  const text = `*New Portfolio Contact*
+
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+
+*Message:*
+${formData.message}`;
+
+  // Replace with your WhatsApp number
+  const phoneNumber = "917708909685"; // <-- Change this to your number
+
+  setTimeout(() => {
+    // Stop spinner
+    setIsSubmitting(false);
+
+    // Open WhatsApp
+    window.open(
+      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`,
+      "_blank"
+    );
+
+    // Show success popup
+    setIsSuccess(true);
+
+    // Clear form
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+
+    // Hide popup after 5 seconds
     setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
+      setIsSuccess(false);
+    }, 5000);
 
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 5000);
-    }, 1500);
-  };
+  }, 1500);
+};
 
   return (
     <section id="contact" className="contact-section">
