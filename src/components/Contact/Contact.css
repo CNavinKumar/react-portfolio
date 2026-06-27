@@ -2,6 +2,9 @@
   position: relative;
   background-color: var(--bg-primary);
   transition: background-color var(--transition-normal);
+  margin-top: 8%;
+  margin-bottom: 8%;
+  
 }
 
 .contact-container {
@@ -17,6 +20,7 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
 }
 
 .contact-info h3,
@@ -91,6 +95,7 @@
   flex-direction: column;
   gap: 20px;
   flex-grow: 1;
+  
 }
 
 .form-group {
