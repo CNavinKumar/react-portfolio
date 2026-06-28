@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEnvelope, FaGithub, FaLinkedin, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
 import './Contact.css';
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -36,25 +37,47 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    setIsSubmitting(true);
+  if (!validateForm()) return;
 
-    setTimeout(() => {
+  setIsSubmitting(true);
+
+  emailjs
+    .send(
+      "service_sgkoj3c", // Replace with your Service ID
+      "template_8mx4scg", // Replace with your Template ID
+      {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+      },
+      "BXk37KTIMb_MxbQkh" // Replace with your Public Key
+    )
+    .then(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
+
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
 
       setTimeout(() => {
         setIsSuccess(false);
       }, 5000);
-    }, 1500);
-  };
+    })
+    .catch((error) => {
+      console.error(error);
+      setIsSubmitting(false);
+      alert("Failed to send message.");
+    });
+};
 
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="contact-section" >
 
 
       <div className="contact-container">
